@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Book>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="vh-100" style="background-color: #eee;">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center  h-100">
+            <div class="col-lg-12 col-xl-11">
+                <h2 class="text-primary">Books</h2>
+                @if (Model.Count() > 0)
+                {
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <table class="table table-bordered table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                                    </th>
+                                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                                    {
+                                        <th>
+                                            Author: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                                            <input type="submit" value="Search" />
+                                        </th>
+
+                                    }
+                                    <th>
+                                        Genre
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var book in Model)
+                                {
+                                    <tr>
+                                        <td width="30%">@book.Title</td>
+                                        <td width="40%">@book.Author</td>
+                                        <td width="40%">@book.Genre</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Title
+                                    </th>
+                                    <th>
+                                        Author
+                                    </th>
+                                    <th>
+                                        Genre
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var book in Model)
+                                {
+                                    <tr>
+                                        <td width="30%">@book.Title</td>
+                                        <td width="40%">@book.Author</td>
+                                        <td width="40%">@book.Genre</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+
+                }
+                else
+                {
+                    <div>
+                        <p>No Books yet</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
