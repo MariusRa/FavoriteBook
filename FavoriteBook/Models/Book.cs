@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FavoriteBook.Models
@@ -20,6 +21,7 @@ namespace FavoriteBook.Models
         public int Published { get; set; }
         public bool IsRead { get; set; }
         public string CoverUrl { get; set; }
-        public User Owner { get; set; }
+        
+        public ICollection<User> Users { get; set; }
     }
 }

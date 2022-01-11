@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FavoriteBook.Migrations
 {
-    public partial class addBooksandUsers : Migration
+    public partial class test1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,25 @@ namespace FavoriteBook.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    BookId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Author = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Pages = table.Column<int>(type: "int", nullable: false),
+                    Published = table.Column<int>(type: "int", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.BookId);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,29 +173,27 @@ namespace FavoriteBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Books",
+                name: "BookUser",
                 columns: table => new
                 {
-                    BookId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Pages = table.Column<int>(type: "int", nullable: false),
-                    Published = table.Column<int>(type: "int", nullable: false),
-                    IsRead = table.Column<bool>(type: "bit", nullable: false),
-                    CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    BooksBookId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.BookId);
+                    table.PrimaryKey("PK_BookUser", x => new { x.BooksBookId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_Books_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
+                        name: "FK_BookUser_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BookUser_Books_BooksBookId",
+                        column: x => x.BooksBookId,
+                        principalTable: "Books",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -219,9 +236,9 @@ namespace FavoriteBook.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_OwnerId",
-                table: "Books",
-                column: "OwnerId");
+                name: "IX_BookUser_UsersId",
+                table: "BookUser",
+                column: "UsersId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -242,13 +259,16 @@ namespace FavoriteBook.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "BookUser");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Books");
         }
     }
 }

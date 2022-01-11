@@ -3,10 +3,8 @@ using FavoriteBook.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FavoriteBook.Controllers
 {
@@ -21,45 +19,45 @@ namespace FavoriteBook.Controllers
             _service = service;
         }
 
-        public IActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        public IActionResult Index(string searchString, string bookTitle, string bookGenre)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
-
             var myBooks = _service.GetAllBooks(1, 20);
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                myBooks = myBooks.Where(b => b.Author.Contains(searchString));
+                myBooks = myBooks.Where(b => b.Author.ToLower().Contains(searchString));
             }
 
-            switch (sortOrder)
+            if (!String.IsNullOrEmpty(bookTitle))
             {
-                case "name_desc":
-                    myBooks = myBooks.OrderByDescending(b => b.Title);
-                    break;
+                myBooks = myBooks.Where(b => b.Title.ToLower().Contains(bookTitle));
+            }
 
-                default:
-                    myBooks = myBooks.OrderBy(b => b.Title);
-                    break;
-
+            if (!String.IsNullOrEmpty(bookGenre))
+            {
+                myBooks = myBooks.Where(b => b.Genre.ToLower().Contains(bookGenre));
             }
 
             return View(myBooks);
         }
 
-     
+        public IActionResult BookDetails(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+          
+            var book = _service.GetBookById(id);
+            if (book == null)
+            {
+                return RedirectToAction("Error", "Auth");
+            }
+            
+            return View(book);
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

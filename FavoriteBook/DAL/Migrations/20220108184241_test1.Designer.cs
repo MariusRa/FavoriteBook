@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FavoriteBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211230155110_addBooksandUsers")]
-    partial class addBooksandUsers
+    [Migration("20220108184241_test1")]
+    partial class test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace FavoriteBook.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("BookUser", b =>
+                {
+                    b.Property<int>("BooksBookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("BooksBookId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("BookUser");
+                });
 
             modelBuilder.Entity("FavoriteBook.Models.Book", b =>
                 {
@@ -43,9 +58,6 @@ namespace FavoriteBook.Migrations
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
 
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Pages")
                         .HasColumnType("int");
 
@@ -58,8 +70,6 @@ namespace FavoriteBook.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("BookId");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("Books");
                 });
@@ -263,13 +273,19 @@ namespace FavoriteBook.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("FavoriteBook.Models.Book", b =>
+            modelBuilder.Entity("BookUser", b =>
                 {
-                    b.HasOne("FavoriteBook.Models.User", "Owner")
-                        .WithMany("MyBooks")
-                        .HasForeignKey("OwnerId");
+                    b.HasOne("FavoriteBook.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksBookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Owner");
+                    b.HasOne("FavoriteBook.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -321,11 +337,6 @@ namespace FavoriteBook.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FavoriteBook.Models.User", b =>
-                {
-                    b.Navigation("MyBooks");
                 });
 #pragma warning restore 612, 618
         }

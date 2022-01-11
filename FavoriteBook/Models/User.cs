@@ -6,6 +6,7 @@ namespace FavoriteBook.Models
     public class User : IdentityUser
     {
         public string FullName { get; set; }
-        public List<Book> MyBooks { get; set; }
+        
+        public ICollection<Book> Books { get; set; }
     }
 }

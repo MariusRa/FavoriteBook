@@ -43,10 +43,13 @@ namespace FavoriteBook
             //    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
             //    o.Filters.Add(new AuthorizeFilter(policy));
             //}).AddXmlDataContractSerializerFormatters();
+
+            
             
             services.ConfigureApplicationCookie(o =>
             {
-                o.LoginPath = "/auth/login";
+                o.LoginPath = "/Auth/Login";
+                o.AccessDeniedPath = "/Administration/AccessDenied";
             });
 
             services.AddControllers();

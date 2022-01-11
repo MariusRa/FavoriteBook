@@ -1,0 +1,64 @@
+﻿@model Book
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<form method="post" asp-action="DeleteBook">
+    <input asp-for="BookId" hidden />
+    <div class="border offset-1 p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Delete Book</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <div class="col-6">
+                        <label asp-for="Title"></label>
+                        <input asp-for="Title" disabled class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="Author"></label>
+                        <input asp-for="Author" disabled class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="Genre"></label>
+                        <input asp-for="Genre" disabled class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="Published"></label>
+                        <input asp-for="Published" disabled class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="Pages"></label>
+                        <input asp-for="Pages" disabled class="form-control" />
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="CoverUrl"></label>
+                        <input asp-for="CoverUrl" disabled class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 row">
+                        <div class="col">
+                            <a asp-controller="Book" asp-action="ListBooks" class="btn btn-success w-100">Back</a>
+                        </div>
+                        <div class="col-10">
+                            <span id="confirmDeleteSpan_@Model.BookId" style="display:none">
+                                <span>Are you sure you want to delete?</span>
+                                <button type="submit" class="btn btn-danger">Yes</button>
+                                <a href="#" class="btn btn-primary"
+                                   onclick="confirmDelete('@Model.BookId', false)">No</a>
+                            </span>
+
+                            <span id="deleteSpan_@Model.BookId">
+                                <a href="#" class="btn btn-danger w-75"
+                                   onclick="confirmDelete('@Model.BookId', true)">Delete</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

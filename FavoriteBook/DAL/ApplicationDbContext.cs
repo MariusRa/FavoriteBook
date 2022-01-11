@@ -12,7 +12,7 @@ namespace FavoriteBook.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer("Data Source=DESKTOP-QJFRKQB; Initial Catalog=BookDomainTask; Integrated security=true;");
+            options.UseSqlServer("Data Source=DESKTOP-QJFRKQB; Initial Catalog=DomainTask; Integrated security=true;");
         }
     }
 }

@@ -53,6 +53,10 @@
                                     <a asp-controller="Private" asp-action="Update" asp-route-Id="@book.BookId" class="btn btn-success mx-1">Update</a>
                                     <a asp-controller="Private" asp-action="Delete" asp-route-Id="@book.BookId" class="btn btn-danger mx-1">Delete</a>
                                     <a asp-controller="Private" asp-action="isRead" asp-route-Id="@book.BookId" class="btn btn-secondary mx-1">Is Read</a>
+                                    <form method="post" asp-action="DeleteUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
+                                        <input asp-for="@book.BookId" hidden />
+                                        <input type="submit" class="btn btn-info w-75" value="lauk" />
+                                    </form>
                                 </div>
                             </td>
                         </tr>
@@ -72,6 +76,10 @@
                                     <a asp-controller="Private" asp-action="Update" asp-route-Id="@book.BookId" class="btn btn-success mx-1">Update</a>
                                     <a asp-controller="Private" asp-action="Delete" asp-route-Id="@book.BookId" class="btn btn-danger mx-1">Delete</a>
                                     <a asp-controller="Private" asp-action="isRead" asp-route-Id="@book.BookId" class="btn btn-warning mx-1">Is Read</a>
+                                    <form method="post" asp-action="DeleteUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
+                                        <input asp-for="@book.BookId" hidden />
+                                        <input type="submit" class="btn btn-info w-75" value="lauk" />
+                                    </form>
                                 </div>
                             </td>
                         </tr>

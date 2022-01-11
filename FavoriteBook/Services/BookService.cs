@@ -1,5 +1,6 @@
 ﻿using FavoriteBook.DAL;
 using FavoriteBook.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,29 +23,57 @@ namespace FavoriteBook.Services
 
         public IEnumerable<Book> GetBookByOwner(string id)
         {
-            return _db.Books.Where(b => b.Owner.Id == id).ToList();
+            return _db.Books.Where(u => u.Users.Any(i => i.Id == id)).ToList();
+            //return _db.Books.Where(b => b.Owner.Id == id).ToList();
+        }
+
+        public Book GetBookById(int bookId)
+        {
+            return _db.Books.FirstOrDefault(x => x.BookId == bookId);
         }
 
         public Book GetById(int id, string ownerId)
         {
-            return _db.Books.FirstOrDefault(x => x.BookId == id && x.Owner.Id == ownerId);
+            return _db.Books.FirstOrDefault(x => x.BookId == id && x.Users.Any(i => i.Id == ownerId));
         }
 
-        public Book AddBook(Book book, string ownerId)
+        public Book AddBook(Book book/*, string ownerId*/)
         {
-            var user = _db.Users.Where(u => u.Id == ownerId).SingleOrDefault();
-            book.Owner = user;
+            //var user = _db.Users.Where(u => u.Id == ownerId).SingleOrDefault();
+            //book.Users.Add(user);
             _db.Books.Add(book);
             _db.SaveChanges();
             return book;
         }
 
-        public Book DeleteBook(int id, string ownerId)
+        public Book AddBookUser(int bookId, string userId)
         {
-            var getBook = GetById(id, ownerId);
+            var book = _db.Books.Include(p => p.Users).Single(p => p.BookId == bookId);
+            var user = _db.Users.Where(u => u.Id == userId).SingleOrDefault();
+
+            book.Users.Add(user);
+            _db.SaveChanges();
+
+            return book;
+        }
+
+        public Book DeleteBook(int id/*, string ownerId*/)
+        {
+            var getBook = GetBookById(id/*, ownerId*/);
             _db.Books.Remove(getBook);
             _db.SaveChanges();
             return getBook;
+        }
+
+        public Book DeleteBookUser(int bookId, string userId)
+        {
+            var book = _db.Books.Include(p => p.Users).Single(p => p.BookId == bookId);
+            var user = _db.Users.Where(u => u.Id == userId).SingleOrDefault();
+
+            book.Users.Remove(user);
+            _db.SaveChanges();
+
+            return book;
         }
 
         public Book UpdateBook(int id, Book book)
