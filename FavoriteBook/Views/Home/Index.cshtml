@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Book>
+﻿@model IEnumerable<UserBooksViewModel>
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
@@ -60,17 +60,29 @@
                                 @foreach (var book in Model)
                                 {
                                 <tr>
-                                    <td width="35%">@book.Title</td>
-                                    <td width="25%">@book.Author</td>
-                                    <td width="20%">@book.Genre</td>
+                      
+                                    <td width="35%">@book.BookTitle</td>
+                                    <td width="25%">@book.BookAuthor</td>
+                                    <td width="20%">@book.BookGenre</td>
                                     <td width="10%">
                                         <a asp-controller="Home" asp-action="BookDetails" asp-route-Id="@book.BookId" class="btn btn-primary">More</a>
                                     </td>
                                     <td width="20%">
-                                        <form method="post" asp-action="AddUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
-                                            <input asp-for="@book.BookId" hidden />
-                                            <input type="submit" class="btn btn-info" value="Add to My Books" />
-                                        </form>
+                                        @if (book.IsSelected == true)
+                                        {
+                                            <form method="post" asp-action="AddUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
+                                                <input asp-for="@book.BookId" hidden />
+                                                <input type="submit" class="btn btn-secondary w-100" value="Added" />
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <form method="post" asp-action="AddUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
+                                                <input asp-for="@book.BookId" hidden />
+                                                <input type="submit" class="btn btn-info" value="Add to My Books" />
+                                            </form>
+                                        }
+
                                     </td>
                                 </tr>
                                 }
@@ -97,9 +109,9 @@
                                 @foreach (var book in Model)
                                 {
                                     <tr>
-                                        <td width="30%">@book.Title</td>
-                                        <td width="40%">@book.Author</td>
-                                        <td width="40%">@book.Genre</td>
+                                        <td width="30%">@book.BookTitle</td>
+                                        <td width="40%">@book.BookAuthor</td>
+                                        <td width="40%">@book.BookGenre</td>
                                     </tr>
                                 }
                             </tbody>

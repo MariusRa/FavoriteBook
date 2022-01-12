@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wFgEJvcxvPCBOoqtlHUIoL9G/f5J9JaFadlV4M5d1w3oi4OsTE/WhVPdCUN8hR6ZeHaVooAqGTqTb6PrUWsJQQ==",
+  "dgSpecHash": "5CbLfZstgjHQQDn8HbiiEkoi7KI71epP5DmcVmy2H+j1kqrW4zZKahXLNgRZQsmZ8QxH6uaaiIgGUl3LnSALJQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Marius\\Desktop\\KITM\\Back-end\\C#\\FavoriteBook\\FavoriteBook\\FavoriteBook.csproj",
   "expectedPackageFiles": [
@@ -59,6 +59,9 @@
     "C:\\Users\\Marius\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Marius\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Marius\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\Marius\\.nuget\\packages\\nlog\\4.7.13\\nlog.4.7.13.nupkg.sha512",
+    "C:\\Users\\Marius\\.nuget\\packages\\nlog.extensions.logging\\1.7.4\\nlog.extensions.logging.1.7.4.nupkg.sha512",
+    "C:\\Users\\Marius\\.nuget\\packages\\nlog.web.aspnetcore\\4.14.0\\nlog.web.aspnetcore.4.14.0.nupkg.sha512",
     "C:\\Users\\Marius\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\Marius\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\Marius\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",

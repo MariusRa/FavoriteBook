@@ -171,3 +171,7 @@ C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\obj\Debug\net
 C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\obj\Debug\net5.0\Razor\Views\Book\Update.cshtml.g.cs
 C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\obj\Debug\net5.0\Razor\Views\Private\UserListBooks.cshtml.g.cs
 C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\obj\Debug\net5.0\Razor\Views\Home\BookDetails.cshtml.g.cs
+C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\bin\Debug\net5.0\nlog.config
+C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\bin\Debug\net5.0\NLog.dll
+C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\bin\Debug\net5.0\NLog.Web.AspNetCore.dll

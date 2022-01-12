@@ -1,10 +1,13 @@
 ﻿using FavoriteBook.Models;
 using FavoriteBook.Services;
+using FavoriteBook.viewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 
 namespace FavoriteBook.Controllers
 {
@@ -38,7 +41,34 @@ namespace FavoriteBook.Controllers
                 myBooks = myBooks.Where(b => b.Genre.ToLower().Contains(bookGenre));
             }
 
-            return View(myBooks);
+            var user = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(s => s.Value).FirstOrDefault();
+            
+
+            var model = new List<UserBooksViewModel>();
+            
+            foreach (var book in myBooks)
+            {
+                var userBooksViewModel = new UserBooksViewModel
+                {
+                    BookId = book.BookId,
+                    BookAuthor = book.Author,
+                    BookTitle = book.Title,
+                    BookGenre = book.Genre
+                };
+
+                if (_service.GetById(book.BookId, user) != null)
+                {
+                    userBooksViewModel.IsSelected = true;
+                }
+                else
+                {
+                    userBooksViewModel.IsSelected = false;
+                }
+                
+                model.Add(userBooksViewModel);
+            }
+
+            return View(model);
         }
 
         public IActionResult BookDetails(int id)

@@ -28,6 +28,7 @@ namespace FavoriteBook.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registration(RegistrationViewModel model)
         {
             if (ModelState.IsValid && (model.Password == model.ConfirmPassword))
@@ -52,11 +53,14 @@ namespace FavoriteBook.Controllers
 
         public IActionResult Login(string returnUrl = null)
         {
+            _logger.LogInformation("User trying logged in.");
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -88,6 +92,7 @@ namespace FavoriteBook.Controllers
             return View(model);
         }
 
+        
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();

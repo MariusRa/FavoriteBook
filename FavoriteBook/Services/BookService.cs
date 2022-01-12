@@ -1,5 +1,6 @@
 ﻿using FavoriteBook.DAL;
 using FavoriteBook.Models;
+using FavoriteBook.viewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace FavoriteBook.Services
         {
             return _db.Books.Skip((page - 1) * size).Take(size).ToList();
         }
+
+      
 
         public IEnumerable<Book> GetBookByOwner(string id)
         {
@@ -90,5 +93,7 @@ namespace FavoriteBook.Services
             _db.SaveChanges();
             return book;
         }
+
+        
     }
 }
