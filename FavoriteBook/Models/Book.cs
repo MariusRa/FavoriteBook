@@ -23,5 +23,8 @@ namespace FavoriteBook.Models
         public string CoverUrl { get; set; }
         
         public ICollection<User> Users { get; set; }
+        public ICollection<Membership> Memberships { get; set; }
+
+       
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Book>
+﻿@model IEnumerable<BookMembershipViewModel>
 
 @{
     ViewData["Title"] = "UserListBooks";
@@ -10,7 +10,7 @@
             <h2 class="text-primary">My Books List</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Search new Book</a>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary">Search new Book</a>
         </div>
 
         <form asp-controller="Private" asp-action="UserListBooks" class="form-row col-auto">
@@ -39,6 +39,9 @@
                         Genre
                     </th>
                     <th>
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </th>
+                    <th>
                         Actions
                     </th>
                 </tr>
@@ -46,18 +49,23 @@
             <tbody>
                 @foreach (var book in Model)
                 {
-                    if (book.IsRead == true)
+                    if (book.IsBookRead == true)
                     {
                         <tr>
                             <td width="30%">@book.Title  <span class="badge bg-success">Read</span></td>
                             <td width="20%">@book.Genre</td>
-                            <td width="40%">
-                                <div class="w-100 btn-group" role="group">
-                                    <a asp-controller="Private" asp-action="BookDetails" asp-route-Id="@book.BookId" class="btn btn-primary mx-1">More</a>
-                                    <a asp-controller="Private" asp-action="isRead" asp-route-Id="@book.BookId" class="btn btn-secondary mx-1">Is Read</a>
+                            <td width="10%">
+                                <a asp-controller="Private" asp-action="BookDetails" asp-route-Id="@book.BookId" class="btn btn-primary btn-block">More</a>
+                            </td>
+                            <td width="30%">
+                                <div class="w-100 btn-group">
+                                   <form asp-action="IsBookRead" method="post" asp-controller="Private" asp-route-Id="@book.BookId">
+                                        <input asp-for="@book.BookId" hidden />
+                                        <input type="submit" class="btn btn-outline-secondary mx-2" value="Read" />
+                                        </form>
                                     <form method="post" asp-action="DeleteUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
                                         <input asp-for="@book.BookId" hidden />
-                                        <input type="submit" class="btn btn-info w-100" value="Delete" />
+                                        <input type="submit" class="btn btn-info mx-2" value="Delete" />
                                     </form>
                                 </div>
                             </td>
@@ -65,21 +73,26 @@
                     }
                     else
                     {
-                        <tr>
-                            <td width="30%">@book.Title</td>
-                            <td width="20%">@book.Genre</td>
+            <tr>
+                <td width="30%">@book.Title</td>
+                <td width="20%">@book.Genre</td>
+                <td width="10%">
+                    <a asp-controller="Private" asp-action="BookDetails" asp-route-Id="@book.BookId" class="btn btn-primary w-100">More</a>
+                </td>
+                <td width="30%">
+                    <div class="w-100 btn-group" role="group">
 
-                            <td width="40%">
-                                <div class="w-100 btn-group" role="group">
-                                    <a asp-controller="Private" asp-action="BookDetails" asp-route-Id="@book.BookId" class="btn btn-primary mx-1">More</a>
-                                    <a asp-controller="Private" asp-action="isRead" asp-route-Id="@book.BookId" class="btn btn-warning mx-1">Is Read</a>
-                                    <form method="post" asp-action="DeleteUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
-                                        <input asp-for="@book.BookId" hidden />
-                                        <input type="submit" class="btn btn-info w-100" value="Delete" />
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
+                        <form asp-action="IsBookRead" method="post" asp-controller="Private" asp-route-Id="@book.BookId">
+                            <input asp-for="@book.BookId" hidden />
+                            <input type="submit" class="btn btn-warning mx-2" value="Is Read?" />
+                        </form>
+                        <form method="post" asp-action="DeleteUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
+                            <input asp-for="@book.BookId" hidden />
+                            <input type="submit" class="btn btn-info mx-2" value="Delete" />
+                        </form>
+                    </div>
+                </td>
+            </tr>
                     }
                 }
             </tbody>

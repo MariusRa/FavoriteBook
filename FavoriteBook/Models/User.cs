@@ -8,5 +8,6 @@ namespace FavoriteBook.Models
         public string FullName { get; set; }
         
         public ICollection<Book> Books { get; set; }
+        public ICollection<Membership> Memberships { get; set; }
     }
 }

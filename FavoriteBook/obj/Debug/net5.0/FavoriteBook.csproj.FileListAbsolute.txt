@@ -175,3 +175,4 @@ C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\bin\Debug\net
 C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\bin\Debug\net5.0\NLog.dll
 C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\bin\Debug\net5.0\NLog.Extensions.Logging.dll
 C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\bin\Debug\net5.0\NLog.Web.AspNetCore.dll
+C:\Users\Marius\Desktop\KITM\Back-end\C#\FavoriteBook\FavoriteBook\obj\Debug\net5.0\Razor\Views\Private\IsBookRead.cshtml.g.cs

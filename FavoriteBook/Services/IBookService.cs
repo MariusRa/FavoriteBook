@@ -15,9 +15,11 @@ namespace FavoriteBook.Services
         Book UpdateBook(int id, Book book);
         Book AddBookUser(int bookId, string userId);
         Book DeleteBookUser(int bookId, string userId);
-        
+
 
 
         Book IsRead(int id, bool value, string ownerId);
+
+        Membership IsBookRead(int id, bool value, string userId);
     }
 }
