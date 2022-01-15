@@ -10,15 +10,11 @@ namespace FavoriteBook.Services
         Book GetBookById(int bookId);
         Book GetById(int id, string ownerId);
         IEnumerable<Book> GetBookByOwner(string id);
-        Book AddBook(Book book/*, string ownerId*/);
-        Book DeleteBook(int id/*, string ownerId*/);
+        Book AddBook(Book book);
+        Book DeleteBook(int id);
         Book UpdateBook(int id, Book book);
         Book AddBookUser(int bookId, string userId);
         Book DeleteBookUser(int bookId, string userId);
-
-
-
-        Book IsRead(int id, bool value, string ownerId);
 
         Membership IsBookRead(int id, bool value, string userId);
     }

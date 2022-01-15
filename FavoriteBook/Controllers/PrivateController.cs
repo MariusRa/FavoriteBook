@@ -23,13 +23,9 @@ namespace FavoriteBook.Controllers
             _service = service;
             _db = db;
         }
-        public IActionResult Index()
-        {
-            var myUserId = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(s => s.Value).FirstOrDefault();
-            
-            var myBooks = _service.GetBookByOwner(myUserId);
-            return View(myBooks);
-        }
+
+
+        // pateikiamos prisiloginusio User booklist'as, su galimybe jį filtruoti ir sortinti pagal book title
         public IActionResult UserListBooks(string searchString, string sortOrder)
         {
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -65,16 +61,16 @@ namespace FavoriteBook.Controllers
                     Title = book.Title,
                     Genre = book.Genre,
                     Author = book.Author,
+                    Pages = book.Pages,
                     IsBookRead = _db.Memberships.FirstOrDefault(x => x.Book.BookId == book.BookId && x.User.Id == myUserId).IsBookRead
                 };
 
                 model.Add(bookMembershipViewModel);
             }
-            
-
             return View(model);
         }
 
+        // pateikiama book info tik is Userio bookList
         public IActionResult BookDetails(int id)
         {
             if (id == 0)
@@ -90,7 +86,7 @@ namespace FavoriteBook.Controllers
             return View(book);
         }
 
- 
+        // sukuriamas ryšys tarp userio ir book
         [HttpPost]
         public IActionResult AddUserBook(int id)
         {
@@ -101,6 +97,7 @@ namespace FavoriteBook.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // ištrinamas ryšys tarp userio ir book
         [HttpPost]
         public IActionResult DeleteUserBook(int id)
         {
@@ -110,6 +107,7 @@ namespace FavoriteBook.Controllers
             return RedirectToAction("UserListBooks", "Private");
         }
 
+        // User gali pažymėti book kaip read/unread
         [HttpPost]
         public IActionResult IsBookRead(int id, Membership value)
         {

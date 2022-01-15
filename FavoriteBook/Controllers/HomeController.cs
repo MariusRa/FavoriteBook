@@ -22,6 +22,7 @@ namespace FavoriteBook.Controllers
             _service = service;
         }
 
+        // booklist'as su galimybe filtruoti pagal titel, genre, author
         public IActionResult Index(string searchString, string bookTitle, string bookGenre)
         {
             var myBooks = _service.GetAllBooks(1, 20);
@@ -71,6 +72,7 @@ namespace FavoriteBook.Controllers
             return View(model);
         }
 
+        // detali info apie knygą
         public IActionResult BookDetails(int id)
         {
             if (id == 0)
@@ -86,8 +88,6 @@ namespace FavoriteBook.Controllers
             
             return View(book);
         }
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -26,7 +26,6 @@ namespace FavoriteBook
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IBookService, BookService>();
-            services.AddTransient<IUserService, UserService>();
 
             services.AddDbContext<ApplicationDbContext>();
             services.AddIdentity<User, IdentityRole>(options =>
@@ -39,12 +38,7 @@ namespace FavoriteBook
             }
                 ).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-            //services.AddMvc(o => {
-            //    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-            //    o.Filters.Add(new AuthorizeFilter(policy));
-            //}).AddXmlDataContractSerializerFormatters();
-
-            
+                   
             
             services.ConfigureApplicationCookie(o =>
             {

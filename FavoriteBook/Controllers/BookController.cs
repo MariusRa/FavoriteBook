@@ -26,8 +26,8 @@ namespace FavoriteBook.Controllers
             {
                 return NotFound();
             }
-            //var myUserId = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(s => s.Value).FirstOrDefault();
-            var book = _service.GetBookById(id/*, myUserId*/);
+            
+            var book = _service.GetBookById(id);
             if (book == null)
             {
                 return RedirectToAction("Error", "Auth");
@@ -45,8 +45,7 @@ namespace FavoriteBook.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var myUserId = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(s => s.Value).FirstOrDefault();
-                var newBook = _service.AddBook(model/*, myUserId*/);
+                var newBook = _service.AddBook(model);
                 return RedirectToAction("ListBooks", "Book");
             }
 
@@ -60,8 +59,8 @@ namespace FavoriteBook.Controllers
             {
                 return NotFound();
             }
-            //var myUserId = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(s => s.Value).FirstOrDefault();
-            var book = _service.GetBookById(id/*, myUserId*/);
+            
+            var book = _service.GetBookById(id);
             if (book == null)
             {
                 return RedirectToAction("Error", "Auth");
@@ -72,8 +71,7 @@ namespace FavoriteBook.Controllers
         [HttpPost]
         public IActionResult DeleteBook(Book book)
         {
-            //var myUserId = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(s => s.Value).FirstOrDefault();
-            _service.DeleteBook(book.BookId/*, myUserId*/);
+            _service.DeleteBook(book.BookId);
             return RedirectToAction("ListBooks", "Book");
         }
 
@@ -84,8 +82,8 @@ namespace FavoriteBook.Controllers
             {
                 return NotFound();
             }
-            //var myUserId = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(s => s.Value).FirstOrDefault();
-            var book = _service.GetBookById(id/*, myUserId*/);
+            
+            var book = _service.GetBookById(id);
             if (book == null)
             {
                 return RedirectToAction("Error", "Auth");

@@ -59,10 +59,10 @@
                             </td>
                             <td width="30%">
                                 <div class="w-100 btn-group">
-                                   <form asp-action="IsBookRead" method="post" asp-controller="Private" asp-route-Id="@book.BookId">
+                                    <form asp-action="IsBookRead" method="post" asp-controller="Private" asp-route-Id="@book.BookId">
                                         <input asp-for="@book.BookId" hidden />
                                         <input type="submit" class="btn btn-outline-secondary mx-2" value="Read" />
-                                        </form>
+                                    </form>
                                     <form method="post" asp-action="DeleteUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
                                         <input asp-for="@book.BookId" hidden />
                                         <input type="submit" class="btn btn-info mx-2" value="Delete" />
@@ -73,26 +73,26 @@
                     }
                     else
                     {
-            <tr>
-                <td width="30%">@book.Title</td>
-                <td width="20%">@book.Genre</td>
-                <td width="10%">
-                    <a asp-controller="Private" asp-action="BookDetails" asp-route-Id="@book.BookId" class="btn btn-primary w-100">More</a>
-                </td>
-                <td width="30%">
-                    <div class="w-100 btn-group" role="group">
+                        <tr>
+                            <td width="30%">@book.Title</td>
+                            <td width="20%">@book.Genre</td>
+                            <td width="10%">
+                                <a asp-controller="Private" asp-action="BookDetails" asp-route-Id="@book.BookId" class="btn btn-primary w-100">More</a>
+                            </td>
+                            <td width="30%">
+                                <div class="w-100 btn-group" role="group">
 
-                        <form asp-action="IsBookRead" method="post" asp-controller="Private" asp-route-Id="@book.BookId">
-                            <input asp-for="@book.BookId" hidden />
-                            <input type="submit" class="btn btn-warning mx-2" value="Is Read?" />
-                        </form>
-                        <form method="post" asp-action="DeleteUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
-                            <input asp-for="@book.BookId" hidden />
-                            <input type="submit" class="btn btn-info mx-2" value="Delete" />
-                        </form>
-                    </div>
-                </td>
-            </tr>
+                                    <form asp-action="IsBookRead" method="post" asp-controller="Private" asp-route-Id="@book.BookId">
+                                        <input asp-for="@book.BookId" hidden />
+                                        <input type="submit" class="btn btn-warning mx-2" value="Is Read?" />
+                                    </form>
+                                    <form method="post" asp-action="DeleteUserBook" asp-controller="Private" asp-route-Id="@book.BookId">
+                                        <input asp-for="@book.BookId" hidden />
+                                        <input type="submit" class="btn btn-info mx-2" value="Delete" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                     }
                 }
             </tbody>
@@ -102,8 +102,18 @@
     {
         <p>No Books yet</p>
     }
-    <p>
-        Total books: @Model.Count()
-    </p>
+    <div style="text-align:center">
+        @if (Model.Where(m => m.IsBookRead == true).Count() > 0)
+        {
+        <h1 class="badge badge-success">
+            Read: @Model.Where(x => x.IsBookRead == true).Count() of @Model.Count() books ||
+            @Model.Where(x => x.IsBookRead == true).Sum(x => x.Pages) of @Model.Sum(x => x.Pages) pages
+        </h1>
+        }
+        else
+        {
+            <h1 class="badge badge-warning"> Total books: @Model.Count() || Total pages: @Model.Sum(x => x.Pages)</h1>
+        }
+    </div>
 </div>
 

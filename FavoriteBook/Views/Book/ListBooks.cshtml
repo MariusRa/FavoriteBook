@@ -38,22 +38,22 @@
             <tbody>
                 @foreach (var book in Model)
                 {
-                        <tr>
-                            <td width="30%">@book.Title </td>
-                            <td width="20%">@book.Author</td>
-                            <td width="10%">
-                                <div class="w-100 btn-group" role="group">
-                                    <a asp-controller="Book" asp-action="BookDetails" asp-route-Id="@book.BookId" class="btn btn-primary mx-1">More</a>
-                                </div>
-                            </td>
-                            <td width="40%">
-                                <div class="w-100 btn-group" role="group">
-                                    <a asp-controller="Book" asp-action="Update" asp-route-Id="@book.BookId" class="btn btn-success mx-1">Update</a>
-                                    <a asp-controller="Book" asp-action="Delete" asp-route-Id="@book.BookId" class="btn btn-danger mx-1">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                                        
+                    <tr>
+                        <td width="30%">@book.Title </td>
+                        <td width="20%">@book.Author</td>
+                        <td width="10%">
+                            <div class="w-100 btn-group" role="group">
+                                <a asp-controller="Book" asp-action="BookDetails" asp-route-Id="@book.BookId" class="btn btn-primary mx-1">More</a>
+                            </div>
+                        </td>
+                        <td width="40%">
+                            <div class="w-100 btn-group" role="group">
+                                <a asp-controller="Book" asp-action="Update" asp-route-Id="@book.BookId" class="btn btn-success mx-1">Update</a>
+                                <a asp-controller="Book" asp-action="Delete" asp-route-Id="@book.BookId" class="btn btn-danger mx-1">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+
                 }
             </tbody>
         </table>
@@ -62,5 +62,6 @@
     {
         <p>No Books yet</p>
     }
+    <h6>Total books: @Model.Count()</h6>
 </div>
 
