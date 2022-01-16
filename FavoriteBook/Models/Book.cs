@@ -19,7 +19,6 @@ namespace FavoriteBook.Models
         [Range(1, 1500)]
         public int Pages { get; set; }
         public int Published { get; set; }
-        public bool IsRead { get; set; }
         public string CoverUrl { get; set; }
         
         public ICollection<User> Users { get; set; }
